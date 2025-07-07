@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.hook;
 
 import org.springframework.boot.BootstrapRegistry;
 import org.springframework.boot.BootstrapRegistryInitializer;

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.hook;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;

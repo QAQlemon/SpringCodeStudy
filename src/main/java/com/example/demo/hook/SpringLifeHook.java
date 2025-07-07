@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.hook;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -18,7 +18,7 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
  */
 public class SpringLifeHook {
 
-    static class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+    public static class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
         @Override
         public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
@@ -31,7 +31,7 @@ public class SpringLifeHook {
         }
     }
 
-    static class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+    public static class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -59,11 +59,11 @@ public class SpringLifeHook {
 //            return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
 //        }
 //    }
-    class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
+    public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
 
     }
 
-    class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
+    public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
 
         @Override
         public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {

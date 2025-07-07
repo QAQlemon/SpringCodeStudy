@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.hook;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @Create: 2025/7/4 13:36
  * @Version: v1.0
  */
-@Component
+//@Component
 public class MyApplicationContextInitializer implements ApplicationContextInitializer {
 
     @Override
