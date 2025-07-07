@@ -9,7 +9,6 @@ import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: MyConfiguration
@@ -18,19 +17,26 @@ import org.springframework.stereotype.Component;
  * @Create: 2025/7/7 15:33
  * @Version: v1.0
  */
-
-//@Component
-@Configuration
-@PropertySource("classpath:BeanDemoCfg.properties")//仅导入.properties文件,指定属性文件的加载来源，加载文件到Environment中
-//@PropertySource("classpath:application.yml")//
-//@ConfigurationProperties(prefix = "beanDemo")//将属性绑定到Java对象,无需借助@value
-//@ImportResource("classpath:BeanDemoCfg.yml")//导入.xml文件
 @ToString
 @Getter
 @Setter
+//@Component
+@Configuration//注：配置类不能
+@PropertySource("classpath:customProperties/BeanDemoCfg.properties")//仅导入.properties文件,指定属性文件的加载来源，加载文件到Environment中
+//@ConfigurationProperties(prefix = "bean")//不能使用相同的前缀，
+//@ImportResource("classpath:BeanDemoCfg.yml")//导入.xml文件
 public class HookConfiguration {
-    @Value("${beanDemo.age}")
-    Integer name;
+    @Value("${server.port}")
+    Integer port;
+
+    @Value("${profile}")
+    String profile;
+
+    @Value("${beanData.name}")
+    String name;
+
+    @Value("${bean-data.age}")
+    Integer age;
 
 
     @Bean(
@@ -40,8 +46,6 @@ public class HookConfiguration {
 //    @ConfigurationProperties(prefix = "myBean")
     public BeanDemo beanDemo(){
         BeanDemo beanDemo = new BeanDemo();
-//        beanDemo.name=;
-//        beanDemo.age=;
         return beanDemo;
     }
     @Bean
@@ -49,18 +53,21 @@ public class HookConfiguration {
         MyApplicationContextInitializer myApplicationContextInitializer = new MyApplicationContextInitializer();
         return myApplicationContextInitializer;
     }
+    //必须使用static
     @Bean
-    public SpringLifeHook.MyBeanFactoryPostProcessor myBeanFactoryPostProcessor(){
+    public static SpringLifeHook.MyBeanFactoryPostProcessor myBeanFactoryPostProcessor(){
         SpringLifeHook.MyBeanFactoryPostProcessor myBeanFactoryPostProcessor = new SpringLifeHook.MyBeanFactoryPostProcessor();
         return myBeanFactoryPostProcessor;
     }
     //注：@Configuration 类默认会被 Spring CGLIB 代理增强,@Configuration 中所有带 @Bean(proxyBeanMethods=true) 注解的方法都会被动态代理
     //而BeanDefinitionRegistryPostProcessor执行时，常规的 @Configuration 类增强机制还未完全准备好，需要使用static标识方法
     @Bean
-    public SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor(){
+    public static SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor(){
         SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor = new SpringLifeHook.MyBeanDefinitionRegistryPostProcessor();
         return myBeanDefinitionRegistryPostProcessor;
     }
+
+
 //    @Bean SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
 //        SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor = new SpringLifeHook.MyInstantiationAwareBeanPostProcessor();
 //        return myInstantiationAwareBeanPostProcessor;

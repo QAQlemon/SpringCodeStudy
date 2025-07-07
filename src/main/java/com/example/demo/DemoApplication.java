@@ -4,9 +4,12 @@ import com.example.demo.config.HookConfiguration;
 import com.example.demo.config.ProfileConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 @SpringBootApplication
+//@EnableConfigurationProperties
 public class DemoApplication {
 
     public static void main(String[] args) {
@@ -53,12 +56,13 @@ public class DemoApplication {
         //              contextPrepared
         //      refresh
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
+        ConfigurableEnvironment environment = applicationContext.getEnvironment();
 
-//        ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
+        ProfileConfig bean1 = applicationContext.getBean(ProfileConfig.class);
+        HookConfiguration bean2 = applicationContext.getBean(HookConfiguration.class);
+        System.out.println(bean1);
+        System.out.println(bean2);
 
-//        ProfileConfig bean = applicationContext.getBean(ProfileConfig.class);
-        HookConfiguration bean = applicationContext.getBean(HookConfiguration.class);
-        System.out.println(bean);
     }
 
 }

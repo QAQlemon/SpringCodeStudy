@@ -20,7 +20,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(
 //    "classpath:application.yml"
-        "classpath:BeanDemoCfg.yml"
+        "classpath:customProperties/BeanDemoCfg.yml"
 )
 
 //@ConfigurationProperties(prefix = "test")

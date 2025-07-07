@@ -9,3 +9,7 @@ spring:
   profiles:
 #    active: dev
     active: produce
+
+bean:
+  name: testFromYML
+  age: 123
