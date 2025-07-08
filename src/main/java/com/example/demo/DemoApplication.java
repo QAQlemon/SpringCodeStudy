@@ -28,7 +28,7 @@ public class DemoApplication {
 //        springApplication.setListeners();//监听器
 
         //2.运行
-        //  创建BootstrapContext
+        //  创建BootstrapContext  用于创建ApplicationContext前提供一个上下文环境
         //      调用容器拓展点BootstrapRegistryInitializer.initialize()
         //
         //  listener
@@ -36,7 +36,7 @@ public class DemoApplication {
         //      触发监听器listeners.starting
         //
         //  Environment
-        //      创建可用环境
+        //      基于BootstrapContext创建可用环境
         //          PropertySource 属性源配置
         //          Profile        配置文件生效处理
         //      binder 属性源
