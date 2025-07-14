@@ -31,23 +31,32 @@ public class DemoApplication {
         //  创建BootstrapContext  用于创建ApplicationContext前提供一个上下文环境
         //      调用容器拓展点BootstrapRegistryInitializer.initialize()
         //
-        //  listener
-        //      创建SpringApplicationRunListeners
+        //  RunListener
+        //      注册和创建SpringApplicationRunListeners
+        //          spring的事件广播
+        //          自定义应用运行监听器
         //      触发监听器listeners.starting
         //
         //  Environment
-        //      基于BootstrapContext创建可用环境
-        //          PropertySource 属性源配置
-        //          Profile        配置文件生效处理
-        //      binder 属性源
-        //      listener
-        //          environmentPrepared
-        //      Binder
-        //          绑定Environment与SpringApplication
+        //      通过ApplicationContextFactory创建 可配置环境ConfigurableEnvironment
+        //          ConfigurableEnvironment
+        //              PropertySource 属性源配置
+        //                  SystemProperties 系统属性    -D传递给JVM的参数
+        //                  SystemEnvironment 系统环境  操作系统相关的环境变量
+        //
+        //              Profile        配置文件生效处理
+        //      RunListener
+        //          environmentPrepared 通过spring内置的事件广播机制将事件广播，最终由EnvironmentPostProcessorApplicationListener去获取
+        //          spring.factories中注册好的EnvironmentPostProcessor对环境中的PropertySource进行解析
+        //
+        //
         //
         //  Banner
         //
         //  context
+        //      通过ApplicationContextFactory创建 可配置应用上下文ConfigurableApplicationContext
+        //          AnnotationConfigServletWebServerApplicationContext
+        //          ServletWebServerApplicationContext
         //      create
         //      prepare
         //          ApplicationContextInitializer.initialize()
