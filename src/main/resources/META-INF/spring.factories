@@ -22,7 +22,7 @@ com.example.demo.hook.MySpringApplicationRunListener
 #org.springframework.boot.web.servlet.context.ServletWebServerApplicationContextFactory
 
 # 发生在prepareEnvironment过程中，由应用运行监听器SpringApplicationRunListener广播环境就绪事件，
-# 再触发监听器EnvironmentPostProcessor处理事件，交给从spring.factories中注册的EnvironmentPostProcessor处理
+# 再触发监听器EnvironmentPostProcessorApplicationListener处理事件，交给从spring.factories中注册的EnvironmentPostProcessor处理
 # Environment Post Processors
 org.springframework.boot.env.EnvironmentPostProcessor=\
 com.example.demo.hook.MyEnvironmentPostProcessor
