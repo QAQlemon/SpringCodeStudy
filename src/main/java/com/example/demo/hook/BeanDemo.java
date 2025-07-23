@@ -21,10 +21,11 @@ import org.springframework.context.ApplicationContextAware;
 @ToString
 //@Component
 public class BeanDemo
-        implements BeanNameAware, BeanFactoryAware, ApplicationContextAware,
+implements BeanNameAware, BeanFactoryAware, ApplicationContextAware,
 //BeanPostProcessor,
 //InstantiationAwareBeanPostProcessor,
-        InitializingBean {
+InitializingBean
+{
     String name = "zc";
     Integer age = 1;
 

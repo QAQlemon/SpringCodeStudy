@@ -1,0 +1,23 @@
+BeanFactory接口体系
+    第一层
+        BeanFactory 根据Class/名称单个获取，针对单个Bean的基本操作
+    第二层：
+        HierarchicalBeanFactory     嵌套分层
+        ListableBeanFactory         批量获取
+        AutowireCapableBeanFactory  用spring管理的对象自动装配到目标Bean的属性（目标Bean不一定受Spring管理），Bean生命周期
+    第三层：
+        ConfigurableBeanFactory     拓展功能(转换服务、依赖关系管理、元信息缓存、@value表达式解析等)
+            SingletonBeanRegistry       单例Bean操作
+    第四层：ConfigurableListableBeanFactory 整合和进一步拓展功能（配置冻结）
+
+Context
+        ApplicationContext
+            ListableBeanFactory
+            HierarchicalBeanFactory
+            EnvironmentCapable          用于获取 Environment 的接口
+            MessageSource               解析 message 的策略接口，用不支撑国际化等功能
+            ApplicationEventPublisher   事件发布
+            ResourcePatternResolver
+                ResourceLoader          加载资源的顶层接口
+
+BeanDefinition接口体系

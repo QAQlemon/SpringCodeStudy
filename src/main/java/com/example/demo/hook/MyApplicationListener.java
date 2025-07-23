@@ -15,6 +15,6 @@ public class MyApplicationListener implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        System.out.println("ApplicationListener接口：onApplicationEvent(),"+event.toString());
+        System.out.println("\nApplicationListener接口：onApplicationEvent(),"+event.toString());
     }
 }

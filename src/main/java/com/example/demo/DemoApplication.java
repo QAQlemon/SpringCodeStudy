@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.config.HookConfiguration;
 import com.example.demo.config.ProfileConfig;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -65,13 +66,26 @@ public class DemoApplication {
         //              contextPrepared
         //      refresh
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
+
+        //todo 拓展使用
+        //获取环境
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
 
+        //为非容器管理的Bean实现属性注入
+//        applicationContext.getAutowireCapableBeanFactory().autowireBean();
+
+        //手动获取Bean
         ProfileConfig bean1 = applicationContext.getBean(ProfileConfig.class);
         HookConfiguration bean2 = applicationContext.getBean(HookConfiguration.class);
         System.out.println(bean1);
         System.out.println(bean2);
 
+        //获取BeanDefinition
+//        applicationContext.getBeanFactory().getBeanDefinition();
+
+        applicationContext.registerShutdownHook();
+
+        applicationContext.stop();
     }
 
 }
