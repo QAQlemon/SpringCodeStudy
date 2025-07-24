@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: MyConfiguration
@@ -48,11 +49,16 @@ public class HookConfiguration {
         BeanDemo beanDemo = new BeanDemo();
         return beanDemo;
     }
+    ///////////////////////////////////////////////////////////////////
+    //ApplicationContextInitializer
     @Bean
     public MyApplicationContextInitializer myApplicationContextInitializer(){
         MyApplicationContextInitializer myApplicationContextInitializer = new MyApplicationContextInitializer();
         return myApplicationContextInitializer;
     }
+
+    ///////////////////////////////////////////////////////////////////
+    //BeanFactoryPostProcessor
     //必须使用static
     @Bean
     public static SpringLifeHook.MyBeanFactoryPostProcessor myBeanFactoryPostProcessor(){
@@ -67,6 +73,13 @@ public class HookConfiguration {
         return myBeanDefinitionRegistryPostProcessor;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    //BeanPostProcessor
+    @Bean
+    public SpringLifeHook.MyBeanPostProcessor myBeanPostProcessor(){
+        SpringLifeHook.MyBeanPostProcessor myBeanPostProcessor = new SpringLifeHook.MyBeanPostProcessor();
+        return myBeanPostProcessor;
+    }
 
 //    @Bean SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
 //        SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor = new SpringLifeHook.MyInstantiationAwareBeanPostProcessor();

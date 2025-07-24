@@ -8,8 +8,14 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.metrics.ApplicationStartup;
+
+import java.util.Map;
 
 /**
  * @ClassName: BeanDemo
@@ -29,6 +35,21 @@ InitializingBean
     String name = "zc";
     Integer age = 1;
 
+    @Autowired
+    @Qualifier("environment")//可以注入
+    ConfigurableEnvironment environment;
+
+    @Autowired
+    @Qualifier("systemProperties")
+    Map<String, Object> systemProperties;
+
+    @Autowired
+    @Qualifier("systemEnvironment")
+    Map<String, Object> systemEnvironment;
+
+    @Autowired
+    @Qualifier("applicationStartup")
+    ApplicationStartup applicationStartup;
 
     //1.Aware接口
     //BeanNameAware

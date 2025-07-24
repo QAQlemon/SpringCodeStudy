@@ -21,3 +21,19 @@ Context
                 ResourceLoader          加载资源的顶层接口
 
 BeanDefinition接口体系
+
+后置处理接口
+    BeanFactoryPostProcessor
+        2类：
+            BeanDefinitionRegistryPostProcessor   先执行postProcessBeanDefinitionRegistry()再执行postProcessBeanFactory()
+                ConfigurationClassPostProcessor   配置类后置处理，实现了PriorityOrdered始终优先于普通Ordered
+            常规BeanFactoryPostProcessor
+
+
+
+    BeanPostProcessor
+        ApplicationContextAwareProcessor
+
+顺序
+    Ordered             对应@Order注解
+    PriorityOrdered     对应@Priority注解

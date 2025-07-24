@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.config.HookConfiguration;
 import com.example.demo.config.ProfileConfig;
+import com.example.demo.hook.BeanDemo;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -77,15 +78,16 @@ public class DemoApplication {
         //手动获取Bean
         ProfileConfig bean1 = applicationContext.getBean(ProfileConfig.class);
         HookConfiguration bean2 = applicationContext.getBean(HookConfiguration.class);
+        BeanDemo bean3 = applicationContext.getBean(BeanDemo.class);
         System.out.println(bean1);
         System.out.println(bean2);
-
+        System.out.println(bean3);
         //获取BeanDefinition
 //        applicationContext.getBeanFactory().getBeanDefinition();
 
-        applicationContext.registerShutdownHook();
-
-        applicationContext.stop();
+//        applicationContext.registerShutdownHook();
+//
+//        applicationContext.stop();
     }
 
 }

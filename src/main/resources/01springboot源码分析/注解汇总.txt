@@ -1,3 +1,13 @@
+
 @Lazy
-@Primary
-@Dependson
+
+Bean加载顺序控制
+    @Order
+    @Priority
+    @Primary
+    @Dependson
+
+注入
+    @Autowire
+    @Qualifier   限定Bean名称
+    @ConditionOn 条件注入

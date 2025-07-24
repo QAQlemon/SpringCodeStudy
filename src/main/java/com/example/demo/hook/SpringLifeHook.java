@@ -2,6 +2,7 @@ package com.example.demo.hook;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -36,6 +37,27 @@ public class SpringLifeHook {
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
             System.out.println("==>BeanFactoryPostProcessor接口：postProcessBeanFactory()");
+        }
+    }
+
+    public static class MyBeanPostProcessor implements BeanPostProcessor{
+
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("--BeanPostProcessor接口：postProcessBeforeInstantiation,"+beanName);
+            }
+            return bean;
+        }
+
+        @Override
+        public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("--BeanPostProcessor接口：postProcessAfterInitialization,"+beanName);
+            }
+            return bean;
         }
     }
 
