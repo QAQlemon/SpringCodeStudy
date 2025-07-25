@@ -11,3 +11,4 @@ Bean加载顺序控制
     @Autowire
     @Qualifier   限定Bean名称
     @ConditionOn 条件注入
+    @Lookup     标记在方法上，容器会根据该方法的返回值类型在容器中找到对应的Bean实例,一般用于向单例Bean注入原型Bean的场景

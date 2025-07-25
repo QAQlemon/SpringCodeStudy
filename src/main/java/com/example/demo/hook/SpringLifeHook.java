@@ -1,14 +1,13 @@
 package com.example.demo.hook;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor;
+import org.springframework.beans.PropertyValues;
+import org.springframework.beans.factory.config.*;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.core.annotation.Order;
 
 /**
  * @ClassName: SpringLifeHook
@@ -19,6 +18,8 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
  */
 public class SpringLifeHook {
 
+
+    @Order(100)//BeanFactoryPostProcessor排序原则: Priority接口->Ordered接口->@Order注解->@Priority (这里不清楚为什么@Order和@Priority反着处理)
     public static class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
         @Override
@@ -61,26 +62,27 @@ public class SpringLifeHook {
         }
     }
 
+
     //实例化
-//    static class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor{
-////        @Override
-////        public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-////            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessBeforeInstantiation");
-////            return InstantiationAwareBeanPostProcessor.super.postProcessBeforeInstantiation(beanClass, beanName);
-////        }
-//
-////        @Override
-////        public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
-////            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessAfterInstantiation");
-////            return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
-////        }
-//
-//        @Override
-//        public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
-//            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessProperties()");
-//            return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
-//        }
-//    }
+    public static class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor{
+        @Override
+        public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessBeforeInstantiation");
+            return InstantiationAwareBeanPostProcessor.super.postProcessBeforeInstantiation(beanClass, beanName);
+        }
+
+        @Override
+        public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessAfterInstantiation");
+            return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
+        }
+
+        @Override
+        public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessProperties()");
+            return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
+        }
+    }
     public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
 
     }

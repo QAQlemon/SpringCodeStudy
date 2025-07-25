@@ -3,12 +3,14 @@ package com.example.demo.config;
 import com.example.demo.hook.BeanDemo;
 import com.example.demo.hook.MyApplicationContextInitializer;
 import com.example.demo.hook.SpringLifeHook;
+import jakarta.annotation.Priority;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -67,8 +69,11 @@ public class HookConfiguration {
     }
     //注：@Configuration 类默认会被 Spring CGLIB 代理增强,@Configuration 中所有带 @Bean(proxyBeanMethods=true) 注解的方法都会被动态代理
     //而BeanDefinitionRegistryPostProcessor执行时，常规的 @Configuration 类增强机制还未完全准备好，需要使用static标识方法
-    @Bean
-    public static SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor(){
+    @Bean("MyBeanDefinitionRegistryPostProcessor1")
+    //此处@Order和@Priority不生效：BeanFactoryPostProcessor的顺序需要从Class对象上获取 Ordered/PriorityOrdered接口 或 @Order/@priority注解
+//    @Priority(1)
+//    @Order(1)
+    public static SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor1(){
         SpringLifeHook.MyBeanDefinitionRegistryPostProcessor myBeanDefinitionRegistryPostProcessor = new SpringLifeHook.MyBeanDefinitionRegistryPostProcessor();
         return myBeanDefinitionRegistryPostProcessor;
     }
@@ -81,8 +86,8 @@ public class HookConfiguration {
         return myBeanPostProcessor;
     }
 
-//    @Bean SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
-//        SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor = new SpringLifeHook.MyInstantiationAwareBeanPostProcessor();
-//        return myInstantiationAwareBeanPostProcessor;
-//    }
+    @Bean SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
+        SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor = new SpringLifeHook.MyInstantiationAwareBeanPostProcessor();
+        return myInstantiationAwareBeanPostProcessor;
+    }
 }

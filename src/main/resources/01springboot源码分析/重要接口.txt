@@ -24,6 +24,8 @@ BeanDefinition接口体系
 
 后置处理接口
     BeanFactoryPostProcessor
+        注：@Order和@Priority修饰在 @Bean注册的BeanFactoryPostProcessor的方法上时 ，会失效
+            BeanFactoryPostProcessor的排序原则: Priority接口->Ordered接口->@Order注解->@Priority (这里不清楚为什么@Order和@Priority反着处理)
         2类：
             BeanDefinitionRegistryPostProcessor   先执行postProcessBeanDefinitionRegistry()再执行postProcessBeanFactory()
                 ConfigurationClassPostProcessor   配置类后置处理，实现了PriorityOrdered始终优先于普通Ordered
