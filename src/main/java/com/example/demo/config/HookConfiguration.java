@@ -86,8 +86,15 @@ public class HookConfiguration {
         return myBeanPostProcessor;
     }
 
-    @Bean SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
+    @Bean
+    SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor(){
         SpringLifeHook.MyInstantiationAwareBeanPostProcessor myInstantiationAwareBeanPostProcessor = new SpringLifeHook.MyInstantiationAwareBeanPostProcessor();
         return myInstantiationAwareBeanPostProcessor;
+    }
+
+    @Bean
+    SpringLifeHook.MyMergedBeanDefinitionPostProcessor myMergedBeanDefinitionPostProcessor(){
+        SpringLifeHook.MyMergedBeanDefinitionPostProcessor myMergedBeanDefinitionPostProcessor = new SpringLifeHook.MyMergedBeanDefinitionPostProcessor();
+        return myMergedBeanDefinitionPostProcessor;
     }
 }

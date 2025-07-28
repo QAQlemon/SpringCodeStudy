@@ -35,7 +35,33 @@ BeanDefinition接口体系
 
     BeanPostProcessor
         ApplicationContextAwareProcessor
+            postProcessBeforeInitialization()
+                EnvironmentAware
+                EmbeddedValueResolverAware
+                ResourceLoaderAware
+                ApplicationEventPublisherAware
+                MessageSourceAware
+                ApplicationContextAware
+                ApplicationStartupAware
+        ServletContextAwareProcessor
+            postProcessBeforeInitialization()
+                ServletContextAware
+                ServletConfigAware
+        ConfigurationClassPostProcessor
+            postProcessBeforeInitialization()
+                ImportRegistry
+        PostProcessRegistrationDelegate
+
+        ConfigurationPropertiesBindingPostProcessor
+
+
 
 顺序
     Ordered             对应@Order注解
     PriorityOrdered     对应@Priority注解
+
+Bean生命周期拓展接口
+
+Aware接口
+
+

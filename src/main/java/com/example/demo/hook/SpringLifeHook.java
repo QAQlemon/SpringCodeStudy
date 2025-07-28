@@ -18,7 +18,7 @@ import org.springframework.core.annotation.Order;
  */
 public class SpringLifeHook {
 
-
+    //1.BeanFactoryPostProcessor
     @Order(100)//BeanFactoryPostProcessor排序原则: Priority接口->Ordered接口->@Order注解->@Priority (这里不清楚为什么@Order和@Priority反着处理)
     public static class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
@@ -41,6 +41,7 @@ public class SpringLifeHook {
         }
     }
 
+    //2.BeanPostProcessor
     public static class MyBeanPostProcessor implements BeanPostProcessor{
 
         @Override
@@ -62,36 +63,70 @@ public class SpringLifeHook {
         }
     }
 
-
     //实例化
     public static class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor{
         @Override
         public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessBeforeInstantiation");
+            if(beanName.equals("beanDemo")) {
+                System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessBeforeInstantiation");
+            }
             return InstantiationAwareBeanPostProcessor.super.postProcessBeforeInstantiation(beanClass, beanName);
         }
 
         @Override
         public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
-            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessAfterInstantiation");
+            if(beanName.equals("beanDemo")) {
+                System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessAfterInstantiation");
+            }
             return InstantiationAwareBeanPostProcessor.super.postProcessAfterInstantiation(bean, beanName);
         }
 
         @Override
         public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) throws BeansException {
-            System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessProperties()");
+            if(beanName.equals("beanDemo")) {
+                System.out.println("InstantiationAwareBeanPostProcessor接口：postProcessProperties()");
+            }
             return InstantiationAwareBeanPostProcessor.super.postProcessProperties(pvs, bean, beanName);
         }
     }
-    public class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
+    public static class MySmartInstantiationAwareBeanPostProcessor implements SmartInstantiationAwareBeanPostProcessor {
 
     }
-
-    public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
+    // bean 实例化前访问和修改合并后的 BeanDefinition,为自动装配(@Autowired, @Value等)收集必要的元数据
+    public static class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
 
         @Override
         public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("MyMergedBeanDefinitionPostProcessor接口：postProcessMergedBeanDefinition");
+            }
+        }
 
+        @Override
+        public void resetBeanDefinition(String beanName) {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("MyMergedBeanDefinitionPostProcessor接口：resetBeanDefinition");
+            }
+        }
+
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("MyMergedBeanDefinitionPostProcessor接口：postProcessBeforeInitialization");
+            }
+            return bean;
+        }
+
+        @Override
+        public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+            if(beanName.equals("beanDemo"))
+            {
+                System.out.println("MyMergedBeanDefinitionPostProcessor接口：postProcessAfterInitialization");
+            }
+            return bean;
         }
     }
 
